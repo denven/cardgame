@@ -20,7 +20,7 @@ app.use(cookieSession({
   secret: process.env.COOKIE_SECRET
 }));
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(express.json())
+app.use(express.json());
 app.use(express.static(path.join(__dirname, '../public')));
 
 // APP ROUTES
@@ -85,7 +85,7 @@ app.put('/games/:uuid', (req, res) => {
             res.json({ uuid: game.uuid });
           });
       } else {
-        res.send('Could not join game'); 
+        res.send('Could not join game');
       }
     });
 });
@@ -132,7 +132,7 @@ io.on('connection', (socket) => {
         if (players[username].cards.includes(card)
           && history[history.length - 1][username] === null) {
           
-          const newGameState = {...game.game_state}
+          const newGameState = {...game.game_state};
           
           newGameState.history[newGameState.history.length - 1][username] = card;
           
@@ -141,7 +141,7 @@ io.on('connection', (socket) => {
             newGameState.history.push({
               [playerNames[0]]: null,
               [playerNames[1]]: null
-            })
+            });
           }
           
           let newCards = [...newGameState.players[username].cards].filter(oldCard => oldCard !== card);
@@ -155,7 +155,7 @@ io.on('connection', (socket) => {
                 io.to(uuid).emit('hydrate-state', {
                   gameState: newGame.game_state
                 });
-              })
+              });
           } else {
             db.updateGameState(uuid, newGameState)
               .then(newGame => {
