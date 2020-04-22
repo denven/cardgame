@@ -4,18 +4,21 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="/styles/index.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/modal.css" type="text/css" />
 
     <title>Card Games</title>
   </head>
   <body>
 
     <% include ./partials/nav.ejs %>
+    <% include ./partials/modal.ejs %>
     <div class="container">
       <h1 id="game-list">My Games</h1> <!-- List completed games of all users -->   
   
       <div class='game-types'>      
         <% for(let index in gameTypes) {  %>   
-        <div class='my-games-toggle game-name type__<%= fileNames[index] %>' data-gametype="<%= fileNames[index] %>"> <%= gameTypes[index] %> </div>
+        <div class='my-games-toggle game-name type__<%= fileNames[index] %>' 
+          data-gametype="<%= fileNames[index] %>"> <%= gameTypes[index] %> </div>
         <% } %>
       </div>
   
@@ -40,6 +43,7 @@
               <% } %>
               <div class='tile-footer'>
                 <a href='/games/<%= game.uuid %>'><button class='button button-primary'>Play</button></a>
+                <button class='button button-primary share-game-button' data-uuid='<%= game.uuid %>'>Share</button>
               </div>
             </div>
             <% } %>
@@ -49,8 +53,11 @@
     </div>
 
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="/scripts/qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/clipboard.js/1.5.12/clipboard.min.js"></script>  
     
     <script>
+
       $(document).ready(()=> {
         const toggleType = (gameType) => {
           $('.tile').addClass('hidden');
@@ -68,6 +75,91 @@
 
         toggleType($(".game-types").children('div').first().data('gametype'));
         $('.nav-header [data-path="/room"]').addClass("nav-link-active");
+
+        $('.share-game-button').each(function() {
+          $(this).click(() => {
+            const uuid = $('.share-game-button').data('uuid');
+            const shareLink = window.location.origin + '/join/' + uuid;
+            $("#qrcode").text('');
+            let qrcode = new QRCode(document.getElementById("qrcode")); //, { width: 100, height: 100 });
+            // qrcode.clear();
+            qrcode.makeCode(shareLink);
+
+            let accountName = $('.nav-name-tag').text().slice(3, -1);
+            openModal('380px', '400px', `Scan to join ${accountName}'s game`, '');
+
+            const SelectContent = (element) => {
+            let doc = document;
+            if (doc.body.createTextRange) {
+                let range = document.body.createTextRange();
+                range.moveToElementText(element);
+                range.select();
+            } else if (window.getSelection) {
+                let selection = window.getSelection();
+                let range = document.createRange();
+                range.selectNodeContents(element);
+                selection.removeAllRanges();
+                selection.addRange(range);
+            }
+          }
+        
+          $('.qrcode-copy-button').click((e) => {             
+            //Make the container Div contenteditable
+            $("#qrcode img").attr("contenteditable", true);
+            //Select the image
+            SelectContent($("#qrcode img").get(0));
+            //Execute copy Command
+            //Note: This will ONLY work directly inside a click listenner
+            document.execCommand('copy');
+            //Unselect the content
+            window.getSelection().removeAllRanges();
+            //Make the container Div uneditable again
+            $("#qrcode img").removeAttr("contenteditable");
+            //Success!!
+            alert("image copied!");
+          });
+
+            // $('.qrcode-copy-button').click(() => {             
+            //   const elem = $("#qrcode").children('img')[0];  // [0] to html object
+            //   elem.select();
+            //   document.execCommand('copy');
+            // });
+
+            $('.linkurl-copy-button').click(() => {             
+              const elem = document.createElement('textarea');
+              elem.value = $("#qrcode").attr('title');  // link is added into title attribute
+              document.body.appendChild(elem);
+              elem.select();
+              document.execCommand('copy');
+              document.body.removeChild(elem);
+            });
+
+          });
+        });
+
+        $('.linkurl-copy-button').click(() => {
+
+        });
+
+        const openModal = (width='40%', height='auto', title='Title', content='content') => {
+          $("#myModal").css("display", "block");
+          $(".modal-dialog").css("width", width);
+          $(".modal-dialog").css("height", height);
+          $(".modal-title").children('h4').text(title);
+          $(".modal-body").children('p').text(content);
+        }
+
+        $(".close").click( () => {
+          $("#myModal").css("display", "none");
+        });
+
+        // When the user clicks anywhere outside of the modal, close it
+        $(window).click( (event) => {
+          if (event.target.id == "myModal") {
+            $("#myModal").css("display", "none");
+          }
+        });
+
       });
     </script>
   </body>

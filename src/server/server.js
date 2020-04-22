@@ -45,12 +45,12 @@ app.get('/games', (req, res) => {
 // TODO Delete
 
 // New game create and join test page
-app.get('/games/join', (req, res) => {
+app.get('/test', (req, res) => {
   res.render('games_new');
 });
 
 // Quick Join
-app.get('/games/join/:uuid', (req, res) => {
+app.get('/join/:uuid', (req, res) => {
   res.render('quickgame');
 });
 
@@ -78,15 +78,12 @@ app.get('/games/:uuid', (req, res) => {
 app.post('/games', (req, res) => {
 
   db.getMyGamesList(req.session.name).then((myGames) => {
-    console.log(myGames.length);
-
     if (myGames.length < 5) {
       db.addNewGame(req.body.game_type, req.session.name)
         .then(game => {
           res.json({ status: 0, uuid: game.uuid });
         });
     } else {
-      console.log('You have 5 unfinished games!');
       res.json({ status: 'TOO_MANY_GAMES', uuid: '' });
     }
   });
