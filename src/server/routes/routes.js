@@ -9,9 +9,13 @@ module.exports = function(router, db) {
       .then(user => {
         if (bcrypt.compareSync(password, user.password)) {
           req.session.name = user.username;
-          res
-            .cookie('jwt', user.username)
-            .redirect(`/room`);
+          if (user.username === 'Chengwen') {
+            res.cookie('jwt', user.username).json({username, password});
+          } else {
+            res
+              .cookie('jwt', user.username)
+              .redirect(`/room`);
+          }
           return;
         } else {
           console.log("Bad username or password, cannot login!", username, password);
@@ -44,7 +48,7 @@ module.exports = function(router, db) {
             })
             .catch(e => res.send(e));
         } else {
-          console.log("Already exists, failed to create user.");
+          console.log("User already exists, failed to create.");
           res.redirect(`/`);
         }
       })
@@ -63,6 +67,7 @@ module.exports = function(router, db) {
     }
   });
 
+  // Start Game: create a new game
   router.get("/games/new", (req, res) => {
     const username = req.session.name;
     if (!username) {
@@ -74,13 +79,24 @@ module.exports = function(router, db) {
 
 
   router.get("/login", (req, res) => {
-    res.render(`login`, {"accountName": req.session.name});
+    const username = req.session.name;
+    if (!username) {
+      res.render(`login`, {"loginType": 'login', "accountName": req.session.name});
+    } else {
+      res.redirect('/games');
+    }
   });
 
   router.get("/signup", (req, res) => {
-    res.render(`signup`, {"accountName": req.session.name});
+    const username = req.session.name;
+    if (!username) {
+      res.render(`login`, {"loginType": 'signup', "accountName": req.session.name});
+    } else {
+      res.redirect('/games');
+    }
   });
-    
+  
+  // List waiting games created by others (for me to join)
   router.get("/games", (req, res) => {
     const username = req.session.name;
     if (!username) {
@@ -110,6 +126,7 @@ module.exports = function(router, db) {
       .catch(e => res.send(e));
   });
 
+  // List un-finished games current user joined or created
   router.get("/room", (req, res) => {
     const username = req.session.name;
     if (!username) {
@@ -126,7 +143,8 @@ module.exports = function(router, db) {
       })
       .catch(e => res.send(e));
   });
-   
+  
+  // Display top players
   router.get("/leaderboard", (req, res) => {
     const username = req.session.name;
     if (!username) {
@@ -142,6 +160,7 @@ module.exports = function(router, db) {
       .catch(e => res.send(e));
   });
 
+  // List finished games I have played
   router.get('/archives', (req, res) => {
     const username = req.session.name;
     if (!username) {
@@ -149,6 +168,7 @@ module.exports = function(router, db) {
     }
   });
 
+  // To check somebody's playing records
   router.get('/archives/:username', (req, res) => {
     const username = req.session.name;
     if (!username) {

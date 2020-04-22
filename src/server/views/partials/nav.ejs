@@ -1,15 +1,21 @@
-<nav class='nav-header container'>
+<nav id="top-nav-bar" class='nav-header container'>
   <div class='left-header'>
     <div class="nav-logo">
-      <svg viewBox="0 0 138 141" xmlns="http://www.w3.org/2000/svg"><g fill="none" transform="matrix(.98768834 -.15643447 .15643447 .98768834 -.666896 8.464233)"><rect fill="#08c" height="118" rx="5" width="85" y="5"/><rect fill="#5ac2e9" height="118" rx="5" transform="matrix(.96592583 .25881905 -.25881905 .96592583 19.524886 -12.306232)" width="85" x="14" y="9"/><rect fill="#c6f1fa" height="118" rx="5" transform="matrix(.8660254 .5 -.5 .8660254 46.324029 -24.192632)" width="85" x="25.80608" y="15.345499"/></g></svg>
+      <svg viewBox="0 0 138 141" xmlns="http://www.w3.org/2000/svg">
+        <g fill="none" transform="matrix(.98768834 -.15643447 .15643447 .98768834 -.666896 8.464233)">
+          <rect fill="#08c" height="118" rx="5" width="85" y="5"/>
+          <rect fill="#5ac2e9" height="118" rx="5" transform="matrix(.96592583 .25881905 -.25881905 .96592583 19.524886 -12.306232)" width="85" x="14" y="9"/>
+          <rect fill="#c6f1fa" height="118" rx="5" transform="matrix(.8660254 .5 -.5 .8660254 46.324029 -24.192632)" width="85" x="25.80608" y="15.345499"/>
+        </g>
+      </svg>
     </div>
     <% if (accountName) { %>  
       <div class='left-header-links'>
         <div data-path="/games/new"><a href="/games/new">Start Game</a></div>
         <div data-path="/games"><a href="/games">Join Game</a></div>
         <div data-path="/room"><a href="/room">My Games</a></div>
-        <div data-path="/leaderboard"><a href="/leaderboard">Leaderboard</a></div>
         <div data-path="/archives"><a href="/archives/<%= accountName %>">Archives</a></div>
+        <div data-path="/leaderboard"><a href="/leaderboard">Leaderboard</a></div>
       </div>
     <% } %>
   </div>

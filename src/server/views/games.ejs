@@ -14,7 +14,9 @@
   
       <div class='game-types'>      
         <% for(let index in gameTypes) {  %>   
-        <div class='my-games-toggle game-name type__<%= fileNames[index] %>' data-gametype="<%= fileNames[index] %>"> <%= gameTypes[index] %> </div>
+        <div class='my-games-toggle game-name type__<%= fileNames[index] %>' 
+          data-gametype="<%= fileNames[index] %>"> <%= gameTypes[index] %> 
+        </div>
         <% } %>
       </div>
       

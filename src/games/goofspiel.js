@@ -13,7 +13,7 @@ const roundWinner = (round, playerPair) => {
 };
 
 const calcScore = gameState => {
-  const { cards, history, players } = gameState
+  const { cards, history, players } = gameState;
   const playerPair = orderPlayers(players);
   
   const score = {

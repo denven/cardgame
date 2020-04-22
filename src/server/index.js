@@ -43,10 +43,18 @@ app.get('/games', (req, res) => {
 });
 
 // TODO Delete
-app.get('/games/newer', (req, res) => {
+
+// New game create and join test page
+app.get('/games/join', (req, res) => {
   res.render('games_new');
 });
 
+// Quick Join
+app.get('/games/join/:uuid', (req, res) => {
+  res.render('quickgame');
+});
+
+// Return to game
 app.get('/games/:uuid', (req, res) => {
   db.getGameData(req.params.uuid)
     .then(data => {
@@ -55,7 +63,7 @@ app.get('/games/:uuid', (req, res) => {
       }
       // TODO validate user
       // If not started, proceed regardless of user. If started but not a player, redirect to /games
-
+      console.log(req.params.uuid, req.session.name);
       res.render('game', {
         accountName: req.session.name,
         file_name: data.file_name,
@@ -66,20 +74,42 @@ app.get('/games/:uuid', (req, res) => {
     });
 });
 
+// Create a new game by type
 app.post('/games', (req, res) => {
-  db.addNewGame(req.body.game_type, req.session.name)
-    .then(game => {
-      res.json({ uuid: game.uuid });
-    });
+
+  db.getMyGamesList(req.session.name).then((myGames) => {
+    console.log(myGames.length);
+
+    if (myGames.length < 5) {
+      db.addNewGame(req.body.game_type, req.session.name)
+        .then(game => {
+          res.json({ status: 0, uuid: game.uuid });
+        });
+    } else {
+      console.log('You have 5 unfinished games!');
+      res.json({ status: 'TOO_MANY_GAMES', uuid: '' });
+    }
+  });
+
 });
 
+// Join a game
 app.put('/games/:uuid', (req, res) => {
   db.getGameData(req.params.uuid)
     .then(game => {
       const withinPlayerMax = game.users.length <= game.player_max;
       const notPlayer = !game.users.find(user => user.username === req.session.name);
+
+      console.log(req.params.uuid, game);
+
+      console.log(!game.started_at && !game.deleted_at && withinPlayerMax && notPlayer);
+      console.log(game.started_at, game.deleted_at, withinPlayerMax, notPlayer);
+      
+      
       if (!game.started_at && !game.deleted_at && withinPlayerMax && notPlayer) {
         const startGame = (game.users.length + 1) === game.player_max;
+
+        console.log('12321',  req.session.name);
         db.addUserToGame(req.params.uuid, game.game_state, req.session.name, startGame)
           .then(game => {
             res.json({ uuid: game.uuid });

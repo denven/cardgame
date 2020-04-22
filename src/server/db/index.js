@@ -134,7 +134,7 @@ const addNewUser = (user) => {
 
 };
 
-// games user has joined
+// games user has joined or created
 const getUserGames = (user) => {
   return pool.query(`
     SELECT game_type, creator_id
@@ -219,6 +219,7 @@ const updateGameAndCreateWinner = (gameUuid, game_state, winnerUsernamesArray) =
     .then(game => game.rows[0]);
 };
 
+// Shuffle the common pile on table
 const shuffle = array => {
   for (let i = array.length - 1; i > 0; i--) {
     let j = Math.floor(Math.random() * (i + 1));

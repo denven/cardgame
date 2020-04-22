@@ -1,5 +1,7 @@
+<!-- goofspiel game paly board -->
 <section id="gsp-game-section">
   <div id="gsp-gameboard">
+    <!-- cards stack: 13 cards -->
     <div id='gsp-cards-container'>
       <div class='gsp-player-card gsp-card hidden' data-card-value="1" id="gsp-card-1">A</div>
       <div class='gsp-player-card gsp-card hidden' data-card-value="2" id="gsp-card-2">2</div>
@@ -15,6 +17,8 @@
       <div class='gsp-player-card gsp-card hidden' data-card-value="12" id="gsp-card-12">Q</div>
       <div class='gsp-player-card gsp-card hidden' data-card-value="13" id="gsp-card-13">K</div>
     </div>
+
+    <!-- players and cards shown by round -->
     <div id="gsp-center-container">
       <div class="gsp-center-player-col">
         <div id="gsp-player-name-1" class="gsp-player-name gsp-text-box gsp-text-box__blue"></div>
@@ -28,15 +32,22 @@
         <div id="gsp-score-2" class="gsp-player-score gsp-text-box gsp-text-box__red"></div>
       </div>
     </div>
+
+    <!-- next round button -->
+    <div id="gsp-next-round" class="gsp-text-box gsp-text-box__gold hidden">NEXT >></div>
+
+    <!-- actions driven by the result of each round -->
     <div id="gsp-sprite-container">
       <img class="gsp-sprite gsp-sprite-dino" id="gsp-sprite-player-1" src="/images/player-1.png">
       <img class="gsp-sprite gsp-sprite-dino" id="gsp-sprite-player-2" src="/images/player-2.png">
       <img class="gsp-sprite gsp-sprite-treasure" src="/images/treasure.png">
     </div>
-    <div id="gsp-next-round" class="gsp-text-box gsp-text-box__gold hidden">NEXT >></div>
+
+    <!-- final result info banner -->
     <div id="gsp-winner-banner-modal" class="hidden">
       <div id="gsp-winner-banner" class="gsp-text-box"></div>
     </div>
+
     <div class="gsp-gameboard-floor"></div>
   </div>
 </section>

@@ -43,7 +43,7 @@ button {
   cursor: pointer;
 }
 
-h1 {
+h2 {
   font-size: 5.4rem;
   margin-top: 3rem;
   margin-bottom: 3rem;
@@ -217,10 +217,12 @@ p {
 
 .new-game {
   cursor: pointer;
+  margin: 0 1.5rem 1.5rem 0;
 } 
 
 .new-game > img {
   width: 250px;
+  margin-bottom: 1rem;
 }
 
 .new-game > p {
