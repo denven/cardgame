@@ -4,19 +4,14 @@
   "description": "## Features",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/server/index.js"
+    "start": "nodemon src/server/server.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/teddyleung/goofspiel.git"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/teddyleung/goofspiel/issues"
-  },
-  "homepage": "https://github.com/teddyleung/goofspiel#readme",
+  "author": "Teddy Leung, Chengwen Deng",
   "dependencies": {
     "bcrypt": "^3.0.8",
     "body-parser": "^1.19.0",
