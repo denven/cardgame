@@ -19,7 +19,6 @@ const getSelectElements = (targetId) => {
     range.selectNode(targetEle);
     selection.removeAllRanges();
     selection.addRange(range);
-    console.log('addreange');
   } else if (document.body.createTextRange) {
     // For IE
     let range = document.body.createTextRange();
@@ -33,7 +32,8 @@ $('.qrcode-copy-button').click(e => {
   getSelectElements('qrcode');
   document.execCommand('copy');
   window.getSelection().removeAllRanges();
-  alert(`QR Code copied to clipboard`);
+
+  showCopyInfo();
 });
 
 $('.linkurl-copy-button').click(() => {
@@ -44,5 +44,6 @@ $('.linkurl-copy-button').click(() => {
   elem.select();
   document.execCommand('copy');
   document.body.removeChild(elem);
-  alert(`URL copied to clipboard`);
+
+  showCopyInfo();
 });

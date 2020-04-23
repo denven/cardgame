@@ -1,9 +1,19 @@
-const openModal = (width = '40%', height = 'auto', title = 'Title', content = 'content') => {
+const openModal = (width = '40%', height = 'auto', title = 'Information', content = 'content', showBtn = true) => {
   $("#myModal").css("display", "block");
   $(".modal-dialog").css("width", width);
   $(".modal-dialog").css("height", height);
-  $(".modal-title").children('h4').text(title);
+  $("#modal-title-text").text(title);
   $(".modal-body").children('p').text(content);
+  if (!showBtn) {
+    $('.modal-copy-buttons').css('display', 'none');
+  }
+};
+
+const showCopyInfo = () => {
+  $('.show-result-info').css('visibility', 'visible');
+  setTimeout(() => {
+    $('.show-result-info').css('visibility', 'hidden');
+  }, 1000);
 };
 
 $(".close").click(() => {

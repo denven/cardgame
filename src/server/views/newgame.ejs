@@ -4,22 +4,26 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="/styles/index.css" type="text/css" /> 
+    <link rel="stylesheet" href="/styles/modal.css" type="text/css" /> 
     <title>Goofspiel-Start Game</title>
   </head>
   <body>
     <% include ./partials/nav.ejs %>
+    <% include ./partials/modal.ejs %>
     <div class="container">
       <h1>Start Game</h1>  
       <div class="new-games">
         <div class="new-game new-game-button" data-game="goofspiel">
           <img src="/images/goofspiel.png">  
           <br>
-          <button id='new-game-button' class="button button-primary">Create</button>
+          <button id='new-game-button' class="button button-disabled">Create</button>
         </div>
       </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="/scripts/modal.js"></script> 
     <script src="/scripts/actions.js"></script>
+
     <script>
       $('.nav-header [data-path="/games/new"]').addClass("nav-link-active");
     </script>

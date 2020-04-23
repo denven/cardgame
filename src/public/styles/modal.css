@@ -34,9 +34,9 @@
   .close {
     color: white;
     float: right;
-    font-size: 28px;
-    font-weight: bold;
-    padding: 13px 0;
+    font-size: 1.8rem;
+    font-weight: 800;
+    /* padding: 13px 0; */
   }
   
   .close:hover, .close:focus {
@@ -46,7 +46,8 @@
   }
   
   .modal-title {
-    padding: 2px 16px;
+    padding: 1.5rem 1.8rem;
+    font-weight: 600;
     background-color: var(--primary-color-active);
     color: white;
   }
@@ -72,15 +73,19 @@
     color: white;
   }
 
+  .show-result-info {
+    /* display: flex; */
+    visibility: hidden;
+  }
     
   /* Add Animation */
   @-webkit-keyframes animatetop {
-    from {top:-300px; opacity:0} 
-    to {top:0; opacity:1}
+    from {top: -400px; opacity: 0} 
+    to {top: 0; opacity: 1}
   }
   
   @keyframes animatetop {
-    from {top:-300px; opacity:0}
-    to {top:0; opacity:1}
+    from {top: -400px; opacity: 0}
+    to {top: 0; opacity: 1}
   }
   
