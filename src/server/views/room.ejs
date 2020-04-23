@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="/styles/index.css" type="text/css" />
     <link rel="stylesheet" href="/styles/modal.css" type="text/css" />
-
-    <title>Card Games</title>
+    <title>Goofspiel-My Room</title>
   </head>
   <body>
 
@@ -43,7 +42,11 @@
               <% } %>
               <div class='tile-footer'>
                 <a href='/games/<%= game.uuid %>'><button class='button button-primary'>Play</button></a>
-                <button class='button button-primary share-game-button' data-uuid='<%= game.uuid %>'>Share</button>
+                <% if (game.players.length <= 1) { %>
+                  <button class='button button-primary share-game-button' data-uuid='<%= game.uuid %>'>Invite</button>
+                <% } else { %>
+                  <button disabled class='button button-disabled'>Invite</button>
+                  <% } %>
               </div>
             </div>
             <% } %>
@@ -53,11 +56,11 @@
     </div>
 
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-    <script src="/scripts/qrcode.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/clipboard.js/1.5.12/clipboard.min.js"></script>  
-    
-    <script>
+    <script src="/vendor/qrcode.min.js"></script>
+    <script src="/scripts/modal.js"></script> 
+    <script src="/scripts/invite.js"></script> 
 
+    <script>
       $(document).ready(()=> {
         const toggleType = (gameType) => {
           $('.tile').addClass('hidden');
@@ -80,93 +83,15 @@
           $(this).click(() => {
             const uuid = $('.share-game-button').data('uuid');
             const shareLink = window.location.origin + '/join/' + uuid;
-            // $('#qrcode').qrcode(shareLink);  
 
-            $("#qrcode").text('');
+            $("#qrcode").text('');  // avoid repeated qrcode      
             let qrcode = new QRCode(document.getElementById("qrcode")); //, { width: 100, height: 100 });
-            // qrcode.clear();
             qrcode.makeCode(shareLink);
 
-            let accountName = $('.nav-name-tag').text().slice(3, -1);
-            openModal('380px', '400px', `Scan to join ${accountName}'s game`, '');
-
-            const SelectContent = (element) => {
-            let doc = document;
-            if (doc.body.createTextRange) {
-                let range = document.body.createTextRange();
-                range.moveToElementText(element);
-                range.select();
-            } else if (window.getSelection) {
-                let selection = window.getSelection();
-                let range = document.createRange();
-                range.selectNodeContents(element);
-                selection.removeAllRanges();
-                selection.addRange(range);
-            }
-          }
-
-          const drawing = $('#qrcode canvas')[0];
-          if (drawing.getContext) {
-              const context = drawing.getContext('2d');
-              const imgURL = drawing.toDataURL("image/png");
-              const image = document.createElement("img");
-              image.src = imgURL;
-              $('#qrcode').html(image);
-          }
-
-          const getSelectElements = (targetNode) => {
-          if (window.getSelection) {
-              //For chrome etc.
-              let selection = window.getSelection();
-              let range = document.createRange();
-              range.selectNode(targetNode);
-              selection.removeAllRanges();
-              selection.addRange(range);
-            } else if (document.body.createTextRange) {
-              // For IE
-              let range = document.body.createTextRange();
-              range.moveToElementText(targetNode);
-              range.select();
-            }
-          }
-
-          $('.qrcode-copy-button').click(e => {
-            getSelectElements($('#qrcode img')[0]);
-            document.execCommand('copy');
-            window.getSelection().removeAllRanges();
-          })
-
-          $('.linkurl-copy-button').click(() => {             
-            const elem = document.createElement('textarea');
-            elem.value = $("#qrcode").attr('title');  // link is added into title attribute
-            document.body.appendChild(elem);
-            elem.select();
-            document.execCommand('copy');
-            document.body.removeChild(elem);
-          });
-
+            let accountName = $('.nav-name-tag').text().slice(4, -1);
+            openModal('380px', '400px', `Scan to join ${accountName}'s game`, '');  // With QRCode inside
           });
         });
-
-        const openModal = (width='40%', height='auto', title='Title', content='content') => {
-          $("#myModal").css("display", "block");
-          $(".modal-dialog").css("width", width);
-          $(".modal-dialog").css("height", height);
-          $(".modal-title").children('h4').text(title);
-          $(".modal-body").children('p').text(content);
-        }
-
-        $(".close").click( () => {
-          $("#myModal").css("display", "none");
-        });
-
-        // When the user clicks anywhere outside of the modal, close it
-        $(window).click( (event) => {
-          if (event.target.id == "myModal") {
-            $("#myModal").css("display", "none");
-          }
-        });
-
       });
     </script>
   </body>

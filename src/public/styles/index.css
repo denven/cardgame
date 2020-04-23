@@ -153,6 +153,12 @@ p {
   background-color: var(--secondary-color-active);
 }
 
+.button-disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+  /* color: #c0c0c0; */
+}
+
 .game-types {
   display: flex;
   justify-content: flex-start;

@@ -21,7 +21,7 @@ const getUserByName = (name) => {
     FROM users
     WHERE username = $1 ;`, [name])
     .then((res) => {
-      console.log("test login in db", res.rows[0]);
+      // console.log("test login in db", res.rows[0]);
       return res.rows[0] || null;
     })
     .catch(err => console.error('query error', err.stack));
@@ -283,10 +283,19 @@ const addUserToGame = (gameUuid, game_state, username, gameStartBool) => {
     .then(game => game.rows[0]);
 };
 
+const getGameCreator = (uuid) => {
+  return pool.query(`
+    SELECT username FROM users JOIN games ON users.id = games.creator_id 
+    WHERE uuid = $1
+  `, [uuid])
+    .then(data => data.rows[0]);
+};
+
 module.exports = {
   getAllUsers,
   getGameData,
   getUserByName,
+  getGameCreator,
   getUserGames,
   getMyGamesList,
   getOpenGames,

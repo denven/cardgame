@@ -1,6 +1,16 @@
 $(() => {
-  $('.new-game-button').each(function() {
-    $(this).click(() => {
+
+  $("#new-game-button").prop("disabled", true);
+  $("#new-game-button").addClass('button-disabled');
+
+  let accountName = $('.nav-name-tag').text().slice(4, -1);
+  if (accountName !== 'SuperMe') {
+    console.log(accountName);
+
+    $("#new-game-button").prop("disabled", false);
+    $("#new-game-button").removeClass('button-disabled');
+
+    $('.new-game-button').click(() => {
       $.ajax({
         type: 'POST',
         url: '/games',
@@ -16,7 +26,7 @@ $(() => {
         })
         .fail(err => console.log(err));
     });
-  });
+  }
 
   $('.join-game-button').each(function() {
     $(this).click(() => {
@@ -34,7 +44,7 @@ $(() => {
   // For quick play
   $('#quck-join-button').click(() => {
 
-    let uuid = window.location.pathname.split('/')[3];
+    let uuid = window.location.pathname.split('/')[2];
 
     if (uuid) {
       $.ajax({
@@ -42,7 +52,7 @@ $(() => {
         url: '/login',
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
-        data: JSON.stringify({username: 'Chengwen', password: '123'})
+        data: JSON.stringify({username: 'SuperMe', password: '123'})
       })
         .done(data => {
           console.log('login sucessfully');
@@ -57,7 +67,7 @@ $(() => {
               .fail(err => console.log(err));
           }, 3000);
         })
-        .fail(err => console.log('111111111111111111134', err));
+        .fail(err => console.log(err));
     }
   });
 });
