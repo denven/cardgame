@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon src/server/server.js",
-    "initdb": "psql -U lbyffkxzgvnwca -d d73p6m554gqksd < ./database/migrations/1_schema.sql && psql -U lbyffkxzgvnwca -d d73p6m554gqksd < ./database/seeds/2_game_types_seed.sql"
+    "initdb": "psql -U postgres -d cardgames < ./database/migrations/1_schema.sql && psql -U postgres -d cardgames < ./database/seeds/2_game_types_seed.sql"
    },
   "repository": {
     "type": "git",
