@@ -66,7 +66,7 @@ module.exports = function(router, db) {
               req.session.name = user.username;
               res
                 .cookie('jwt', user.username)
-                .redirect(`/room`);
+                .redirect(`/new`);
               return;
             })
             .catch(e => res.send(e));
