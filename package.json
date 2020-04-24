@@ -4,7 +4,8 @@
   "description": "## Features",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/server/server.js"
+    "start": "nodemon src/server/server.js",
+    "initdb": "psql -U lbyffkxzgvnwca -d d73p6m554gqksd < ./database/migrations/1_schema.sql && psql -U lbyffkxzgvnwca -d d73p6m554gqksd < ./database/seeds/2_game_types_seed.sql"
    },
   "repository": {
     "type": "git",
