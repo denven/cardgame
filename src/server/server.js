@@ -5,6 +5,8 @@ const io = require('socket.io')(http);
 const PORT = process.env.PORT || 8080;
 const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
+const favicon = require('serve-favicon');
+
 const path = require('path');
 require('dotenv').config();
 const db = require('./db/index');
@@ -21,7 +23,9 @@ app.use(cookieSession({
 }));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.json());
+
 app.use(express.static(path.join(__dirname, '../public')));
+app.use(favicon(path.join(__dirname,'../public/images', 'favicon.ico')));
 
 // APP ROUTES
 const appRoutes = require('./routes/routes');

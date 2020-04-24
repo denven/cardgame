@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon src/server/server.js",
     "initdb": "psql -U postgres -d cardgames < ./database/migrations/1_schema.sql && psql -U postgres -d cardgames < ./database/seeds/2_game_types_seed.sql"
-   },
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/denven/cardgame.git"
@@ -20,9 +20,10 @@
     "dotenv": "^8.2.0",
     "ejs": "^2.7.2",
     "express": "^4.17.1",
+    "nodemon": "^1.19.4",
     "pg": "^7.12.1",
-    "socket.io": "^2.3.0",
-    "nodemon": "^1.19.4"
+    "serve-favicon": "^2.5.0",
+    "socket.io": "^2.3.0"
   },
   "devDependencies": {
     "nodemon": "^1.19.4"
