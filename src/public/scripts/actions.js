@@ -10,14 +10,15 @@ $(() => {
     $("#new-game-button").removeClass('button-disabled');
     $("#new-game-button").addClass('button-primary');
 
-    $('.new-game-button').click(() => {
+    $('#new-game-button').click(() => {
+    
       $.ajax({
         type: 'POST',
         url: '/games',
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
         data: JSON.stringify({
-          game_type: $(this).data('game')
+          game_type: $('.new-game-button').data('game')
         })
       })
         .done(data => {
@@ -32,6 +33,7 @@ $(() => {
     });
   }
 
+  // we have multiple Join buttons
   $('.join-game-button').each(function() {
     $(this).click(() => {
       $.ajax({
@@ -45,7 +47,7 @@ $(() => {
     });
   });
 
-  // For quick play
+  // For quick play with username: 'SuperMe'
   $('#quck-join-button').click(() => {
 
     let uuid = window.location.pathname.split('/')[2];
