@@ -4,11 +4,11 @@
   "description": "## Features",
   "main": "index.js",
   "scripts": {
-    "start": "src/server/server.js"
+    "start": "nodemon src/server/server.js"
    },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/teddyleung/goofspiel.git"
+    "url": "git+https://github.com/denven/cardgame.git"
   },
   "keywords": [],
   "author": "Teddy Leung, Chengwen Deng",
