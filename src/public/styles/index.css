@@ -100,6 +100,22 @@ p {
   align-items: center;
 }
 
+.mobile-nav > div{
+    display: none;
+}
+
+.mobile-nav {
+    display: none;
+}
+
+.desktop-nav > div{
+    display: flex;
+}
+
+.desktop-nav {
+    display: flex;
+}
+
 .nav-header .right-header {
   display: flex;
   align-items: center;
