@@ -13,14 +13,32 @@
     <% include ./partials/nav.ejs %>
     <% include ./partials/modal.ejs %>
     <div class="container">
-      <h1>Start Game</h1>  
-      <div class="new-games">
+      <h1>Start Game</h1> 
+      <h4>Goofspiel is played using cards from a standard deck of cards, and is typically a two-player game, although more players are possible. Each suit is ranked A (low), 2, ..., 10, J, Q, K (high). </h4>
+ 
+      <div class="new-games">        
         <div class="new-game new-game-button" data-game="goofspiel">
           <img src="/images/goofspiel.png">  
           <br>
           <button id='new-game-button' class="button button-disabled">Create</button>
         </div>
+          <ol class="new-game">
+              <li>
+                One suit is singled out as the "prizes"; each of the remaining suits becomes a hand for one player, with one suit discarded if there are only two players, or taken from additional decks if there are four or more. The prizes are shuffled and placed between the players with one card turned up.
+              </li>      
+              <li>
+                Play proceeds in a series of rounds. The players make "closed bids" for the top (face up) prize by selecting a card from their hand (keeping their choice secret from their opponent). Once these cards are selected, they are simultaneously revealed, and the player making the highest bid takes the competition card. Rules for ties in the bidding vary, possibilities including the competition card being discarded, or its value split between the tied players (possibly resulting in fractional scores). Some play that the current prize may "roll over" to the next round, so that two or more cards are competed for at once with a single bid card.
+              </li>
+              <li>
+                The cards used for bidding are discarded, and play continues with a new upturned prize card.
+              </li>
+              <li>
+                After 13 rounds, there are no remaining cards and the game ends. Typically, players earn points equal to sum of the ranks of cards won (i.e. ace is worth one point, 2 is two points, etc., jack 11, queen 12, and king 13 points). Players may agree upon other scoring schemes.
+              </li>
+          </ol>
+        </div>
       </div>
+
     </div>
     <script src="/vendor/jquery-3.5.0.min.js"></script>
     <script src="/scripts/modal.js"></script> 
