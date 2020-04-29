@@ -28,7 +28,7 @@ const getSelectElements = (targetId) => {
 };
 
 $('.qrcode-copy-button').click(e => {
-  let elem = convertCanvasToImage('qrcode');
+  convertCanvasToImage('qrcode');
   getSelectElements('qrcode');
   document.execCommand('copy');
   window.getSelection().removeAllRanges();

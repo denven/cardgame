@@ -14,7 +14,7 @@
     <div class="container">
       <h1>Top Players</h1>  
 
-      <div class='tile-container-leaderbox '> 
+      <div class='tile-container-leaderbox'> 
 
         <% for(let gameName of gameTypes) {  %> 
        
@@ -26,7 +26,8 @@
               <tr>
                 <th class="leaderboard-col-1">Rank</th>
                 <th class="leaderboard-col-2">Top Players</th>
-                <th class="leaderboard-col-3">Gold</th>
+                <th class="leaderboard-col-3">Wins</th>
+                <th class="leaderboard-col-4">Gold</th>
               </tr>
             </thead>
 
@@ -37,7 +38,8 @@
                   <tr> 
                     <td class="leaderboard-col-1"><%= `${count++}.` %></td> 
                     <td class="leaderboard-col-2"><%= userScore.username %></td>
-                    <td class="leaderboard-col-3"><%= Math.round(userScore.score) %></td>
+                    <td class="leaderboard-col-3"><%= userScore.wins %></td>
+                    <td class="leaderboard-col-4"><%= Math.round(userScore.score) %></td>
                   </tr>              
                 <% } %>
               <% }); %>
@@ -46,6 +48,7 @@
                   <td class="leaderboard-col-1"><%= `${count}.` %></td>
                   <td class="leaderboard-col-2">--</td>
                   <td class="leaderboard-col-3">--</td>
+                  <td class="leaderboard-col-4">--</td>
                 </tr> 
               <% } %>
         

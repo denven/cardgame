@@ -27,8 +27,9 @@
             <thead class='tb-header'>  
               <tr>
                 <th class="archives-col-1">Date</th>
-                <th class="archives-col-2">Opponents</th>
-                <th class="archives-col-3">Result</th>
+                <th class="archives-col-2">Creator</th>
+                <th class="archives-col-3">Opponents</th>
+                <th class="archives-col-4">Result</th>
               </tr>
             </thead>
 
@@ -41,8 +42,9 @@
                 <% const result = isWinner ? (winnerCount > 1 ? "DRAW" : "WIN") : "LOSS" %>
                 <% if(game.name === gameName && count <= 10) { %>
                   <td class="archives-col-1"><%= game.completed_at %></td> 
-                  <td class="archives-col-2"> <%= players %></td> 
-                  <td class="archives-col-3 archives_result__<%= result %>"><%= result %></td>
+                  <td class="archives-col-2"> <%= game.creator %></td> 
+                  <td class="archives-col-3"> <%= players %></td> 
+                  <td class="archives-col-4 archives_result__<%= result %>"><%= result %></td>
                 </tr>
                 <% } %>
               <% }); %>   

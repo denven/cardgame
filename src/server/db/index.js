@@ -25,8 +25,20 @@ const getUserByName = (name) => {
       return res.rows[0] || null;
     })
     .catch(err => console.error('query error', err.stack));
-
 };
+
+const getCreatorByGameID = (id) => {
+  return pool.query(`
+    SELECT username
+    FROM users
+    WHERE id = $1 ;`, [id])
+    .then((res) => {
+      // console.log("test login in db", res.rows[0]);
+      return res.rows[0] || null;
+    })
+    .catch(err => console.error('query error', err.stack));
+};
+
 
 // query for 'My Games' Page
 const getMyGamesList = (name) => {
@@ -95,9 +107,9 @@ const getOpenGames = (name) => {
 const getMyCompletedGames = (name) => {
 
   return pool.query(`
-    select mygames.game_id, mygames.name, mygames.type_id, mygames.completed_at, mygames.players, array_agg(users.username) as winners
+    select mygames.game_id, users.username as creator, mygames.name, mygames.type_id, mygames.completed_at, mygames.players, array_agg(users.username) as winners
     from (
-          select user_games.game_id, game_types.id as type_id, game_types.name, games.completed_at, array_agg(users.username) as players
+          select games.creator_id, user_games.game_id, game_types.id as type_id, game_types.name, games.completed_at, array_agg(users.username) as players
           from users 
           join user_games on users.id = user_games.user_id 
           join games on games.id = user_games.game_id 
@@ -108,11 +120,11 @@ const getMyCompletedGames = (name) => {
             join user_games ON games.id = user_games.game_id 
             join users on users.id = user_games.user_id join winners on games.id = winners.game_id
             where users.username= $1 and games.completed_at is not null)
-          group by user_games.game_id, game_types.id, game_types.name, games.completed_at order by completed_at desc
+          group by user_games.game_id, game_types.id, games.creator_id, game_types.name, games.completed_at order by completed_at desc
         ) 
     as mygames join winners on mygames.game_id = winners.game_id 
     join users on users.id = winners.user_id 
-    group by mygames.game_id,  mygames.type_id, mygames.name, mygames.completed_at, mygames.players 
+    group by mygames.game_id, users.username,  mygames.type_id, mygames.name, mygames.completed_at, mygames.players 
     order by mygames.type_id, completed_at desc;
     `, [name])
     .then((res) => {
@@ -295,6 +307,7 @@ module.exports = {
   getAllUsers,
   getGameData,
   getUserByName,
+  getCreatorByGameID,
   getGameCreator,
   getUserGames,
   getMyGamesList,
