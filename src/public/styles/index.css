@@ -257,9 +257,8 @@ p {
 .new-game > button {
     max-width: 60px;
     margin-bottom: 1rem;
-  }
-  
-
+}
+ 
 .new-game > p {
   font-weight: 500;
   font-size: 1.8rem;
@@ -366,7 +365,7 @@ td.leaderboard-col-1 {
 }
 
 .archives-col-2 {
-  min-width: 20rem;
+  min-width: 14rem;
   text-align: left;
   padding: 0 1rem;
 }

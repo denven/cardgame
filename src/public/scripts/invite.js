@@ -3,10 +3,10 @@ const convertCanvasToImage = (targetId) => {
   const drawing = $(`#${targetId} canvas`)[0];
   if (drawing) {
     const context = drawing.getContext('2d');
-    const imageURL = drawing.toDataURL("image/png");
+    const imageURL = drawing.toDataURL("image/png"); // to base64 URL
     const image = document.createElement("img");
     image.src = imageURL;
-    $('#qrcode').html(image);
+    $(`#${targetId}`).html(image); // Insert to the node
   }
 };
 
@@ -28,7 +28,7 @@ const getSelectElements = (targetId) => {
 };
 
 $('.qrcode-copy-button').click(e => {
-  convertCanvasToImage('qrcode');
+  let elem = convertCanvasToImage('qrcode');
   getSelectElements('qrcode');
   document.execCommand('copy');
   window.getSelection().removeAllRanges();
