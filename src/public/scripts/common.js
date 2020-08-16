@@ -1,15 +1,23 @@
 $(() => {
-  // add nav-switch for mobile/desktop view
-  const toogleNav = () => {
-    let width = document.body.clientWidth;
+	// add nav-switch for mobile/desktop view
+	let viewModel = "desktop";
+	const toogleNav = () => {
+		let width = document.body.clientWidth;
 
-    if (width < 720) {
-      $('.desktop-nav div').css('display', 'none');
-      $('.desktop-nav').css('display', 'none');
-      $('.mobile-nav div').css('display', 'flex');
-      $('.mobile-nav').css('display', 'flex');
-    }
-  };
+		if (width > 720) {
+			$(".mobile-nav").hide();
+			$(".mobile-nav > div").hide();
 
-  toogleNav();  //
+			$(".desktop-nav").show();
+			$(".desktop-nav > div").show();
+		} else {
+			$(".mobile-nav").show();
+			$(".mobile-nav > div").show();
+
+			$(".desktop-nav").hide();
+			$(".desktop-nav > div").hide();
+		}
+	};
+
+	toogleNav(); //
 });
