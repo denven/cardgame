@@ -180,11 +180,11 @@ io.on("connection", (socket) => {
 });
 
 // START SERVER\
-http.listen(PORT, () => {
-	console.log(`Server listening on port ${PORT}...`);
-});
-
-// for local LAN testing
-// http.listen(PORT, "192.168.1.87", () => {
+// http.listen(PORT, () => {
 // 	console.log(`Server listening on port ${PORT}...`);
 // });
+
+// for local LAN testing
+http.listen(PORT, "192.168.1.87", () => {
+	console.log(`Server listening on port ${PORT}...`);
+});

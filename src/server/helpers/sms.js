@@ -1,3 +1,5 @@
+const fetch = require("node-fetch");
+
 const sendSMStoMaster = () => {
 	fetch("https://textbelt.com/text", {
 		method: "post",
@@ -10,7 +12,7 @@ const sendSMStoMaster = () => {
 		}),
 	})
 		.then((response) => {
-			console.log("sms service response: ", response);
+			// console.log("sms service response: ", response);
 			return response.json();
 		})
 		.then((data) => {

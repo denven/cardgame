@@ -1,79 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/images/favicon.ico">
-    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
-    <link rel="stylesheet" href="/styles/index.css" type="text/css" /> 
-    <link rel="stylesheet" href="/styles/login.css" type="text/css" />   
-    <title>Goofspiel-Login</title>
-  </head>
 
-  <body>
-    <% include ./partials/nav.ejs %>
-    <div class="login-container">
-      <div class='login-tile'>
-        <div class="login-logo-container">
-          <svg class="login-logo" viewBox="0 0 138 141" xmlns="http://www.w3.org/2000/svg">
-            <g fill="none" transform="matrix(.98768834 -.15643447 .15643447 .98768834 -.666896 8.464233)">
-              <rect fill="#08c" height="118" rx="5" width="85" y="5"/>
-              <rect fill="#5ac2e9" height="118" rx="5" transform="matrix(.96592583 .25881905 -.25881905 .96592583 19.524886 -12.306232)" width="85" x="14" y="9"/>
-              <rect fill="#c6f1fa" height="118" rx="5" transform="matrix(.8660254 .5 -.5 .8660254 46.324029 -24.192632)" width="85" x="25.80608" y="15.345499"/>
-            </g>
-          </svg>
-          <div class="login-welcome-text brand-color">Ready to play?</div>
-        </div>
-        <div class='login-toggler label-align'>
-          <div id='login' class='login-toggle'>Log In</div>
-          <div class='login-toggle' id='signup'>Sign Up</div>
-        </div>
-  
-        <form id="login-form" name="users" action="/login" method="POST">
-          <div class="input-section">
-            <label for="username">Username</label>
-            <input class='text-input' type="text" name="username" required>
-          </div>
-          <div class="input-section">
-            <label for="password">Password</label>
-            <input class='text-input' type="password" name="password" id="password" required>
-          </div>
-          <button id="auth-button" type="submit" class='button button-primary button-login'>Submit</button>
-        </form>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/images/favicon.ico">
+  <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
+  <link rel="stylesheet" href="/styles/index.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/login.css" type="text/css" />
+  <title>Goofspiel-Login</title>
+</head>
+
+<body>
+  <% include ./partials/nav.ejs %>
+  <div class="login-container">
+    <div class='login-tile'>
+      <div class="login-logo-container">
+        <svg class="login-logo" viewBox="0 0 138 141" xmlns="http://www.w3.org/2000/svg">
+          <g fill="none" transform="matrix(.98768834 -.15643447 .15643447 .98768834 -.666896 8.464233)">
+            <rect fill="#08c" height="118" rx="5" width="85" y="5" />
+            <rect fill="#5ac2e9" height="118" rx="5"
+              transform="matrix(.96592583 .25881905 -.25881905 .96592583 19.524886 -12.306232)" width="85" x="14"
+              y="9" />
+            <rect fill="#c6f1fa" height="118" rx="5" transform="matrix(.8660254 .5 -.5 .8660254 46.324029 -24.192632)"
+              width="85" x="25.80608" y="15.345499" />
+          </g>
+        </svg>
+        <div class="login-welcome-text brand-color">Ready to play?</div>
       </div>
+      <div class='login-toggler label-align'>
+        <div id='login' class='login-toggle'>Log In</div>
+        <div class='login-toggle' id='signup'>Sign Up</div>
+      </div>
+
+      <form id="login-form" name="users" action="/login" method="POST">
+        <div class="input-section">
+          <label for="username">Username</label>
+          <input class='text-input' type="text" name="username" required>
+        </div>
+        <div class="input-section">
+          <label for="password">Password</label>
+          <input class='text-input' type="password" name="password" id="password" required>
+        </div>
+        <button id="auth-button" type="submit" class='button button-primary button-login'>Submit</button>
+      </form>
     </div>
+  </div>
 
-    <script src="/vendor/jquery-3.5.0.min.js"></script>    
-    <script>
-      $(document).ready(()=> {
-        const selectLogin = () => {
-          $('#login').addClass('type-select');
-          $("#signup").removeClass('type-select');
-          $('#login-form').attr('action', '/login');
-          $('#auth-button').text('Log In');
-        }
+  <script src="/vendor/jquery-3.5.0.min.js"></script>
+  <script>
+    $(document).ready(() => {
+      const selectLogin = () => {
+        $('#login').addClass('type-select');
+        $("#signup").removeClass('type-select');
+        $('#login-form').attr('action', '/login');
+        $('#auth-button').text('Log In');
+      }
 
-        const selectSignup = () => {
-          $('#signup').addClass('type-select');
-          $("#login").removeClass('type-select');
-          $('#login-form').attr('action', '/signup');
-          $('#auth-button').text('Sign Up');
-        }
-        
-        $('#login').click(() => {       
-          selectLogin();
-        });
+      const selectSignup = () => {
+        $('#signup').addClass('type-select');
+        $("#login").removeClass('type-select');
+        $('#login-form').attr('action', '/signup');
+        $('#auth-button').text('Sign Up');
+      }
 
-        $('#signup').click(() => {       
-          selectSignup();
-        });
-
-        if(`<%= loginType %>` === 'signup') {
-          selectSignup();
-        } else {
-          selectLogin();
-        }
+      $('#login').click(() => {
+        selectLogin();
       });
-    </script>
-  </body>
+
+      $('#signup').click(() => {
+        selectSignup();
+      });
+
+      if (`<%= loginType %>` === 'signup') {
+        selectSignup();
+      } else {
+        selectLogin();
+      }
+    });
+  </script>
+</body>
+
 </html>

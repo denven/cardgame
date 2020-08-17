@@ -1,28 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>Goofspiel</title>
-    <link rel="icon" href="/images/favicon.ico">
-    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
-    <link href="/styles/index.css" rel="stylesheet">
-    <link href="/styles/<%= file_name %>.css" rel="stylesheet">
-    <title>Goofspiel-Playing</title>
-  </head>
-  <body>
-    <%- include partials/nav.ejs %>
-    <div class="game-container">
-      <%- include(`partials/_${file_name}`) %>
-    </div>
-    <script
-      src="https://code.jquery.com/jquery-3.4.1.min.js"
-      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-      crossorigin="anonymous"></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="/scripts/socket.js"></script>
-    <script src="/scripts/<%= file_name %>.js"></script>
-    <script src="/scripts/common.js"></script> 
- 
-  </body>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Goofspiel</title>
+  <link rel="icon" href="/images/favicon.ico">
+  <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
+  <link href="/styles/index.css" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/modal.css" type="text/css" />
+
+  <link href="/styles/<%= file_name %>.css" rel="stylesheet">
+
+  <style>
+    .modal-dialog {
+      top: 30%
+    }
+  </style>
+  <title>Goofspiel-Playing</title>
+</head>
+
+<body>
+  <%- include partials/nav.ejs %>
+  <%- include partials/modal.ejs %>
+
+  <div class="game-container">
+    <%- include(`partials/_${file_name}`) %>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/scripts/socket.js"></script>
+  <script src="/scripts/<%= file_name %>.js"></script>
+  <script src="/scripts/modal.js"></script>
+  <script src="/scripts/common.js"></script>
+  <script>
+    if ("<%= accountName %>" === "SuperMe") {
+      // alert("<%= accountName %>");
+      openModal(
+        "380px",
+        "120px",
+        `Goofspiel`,
+        `Hey, welcome! Chengwen is on the way to play this game with you, just wait for a moment...`,
+        false
+      ); //
+    }
+  </script>
+
+
+</body>
+
 </html>

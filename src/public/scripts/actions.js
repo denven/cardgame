@@ -64,24 +64,16 @@ $(() => {
 			})
 				.done((data) => {
 					console.log("login sucessfully");
-					openModal(
-						"380px",
-						"120px",
-						`Information`,
-						`Please wait for a moment, Chengwen is on his way to play this game with you...`,
-						false
-					); //
-
-					setTimeout(() => {
-						$.ajax({
-							type: "PUT",
-							url: `/games/${uuid}`,
+					// setTimeout(() => {
+					$.ajax({
+						type: "PUT",
+						url: `/games/${uuid}`,
+					})
+						.done((data) => {
+							window.location.href = `/games/${uuid}`;
 						})
-							.done((data) => {
-								window.location.href = `/games/${uuid}`;
-							})
-							.fail((err) => console.log(err));
-					}, 3000);
+						.fail((err) => console.log(err));
+					// }, 3000);
 				})
 				.fail((err) => console.log(err));
 		}

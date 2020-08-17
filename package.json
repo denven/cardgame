@@ -20,6 +20,7 @@
     "dotenv": "^8.2.0",
     "ejs": "^2.7.2",
     "express": "^4.17.1",
+    "node-fetch": "^2.6.0",
     "nodemon": "^1.19.4",
     "pg": "^7.12.1",
     "serve-favicon": "^2.5.0",
