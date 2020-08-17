@@ -62,18 +62,11 @@ $(() => {
 			}),
 		})
 			.then((response) => {
-				console.log("sms service", response);
+				console.log("sms service response: ", response);
 				return response.json();
 			})
 			.then((data) => {
-				console.log("sms service", data);
-				openModal(
-					"380px",
-					"120px",
-					`Information`,
-					`Please wait for a moment, Chengwen is on his way to play this game with you...`,
-					false
-				); //
+				console.log("sms service results: ", data);
 			});
 	};
 
@@ -97,9 +90,19 @@ $(() => {
 							url: `/games/${uuid}`,
 						})
 							.done((data) => {
-								sendSMStoPlayer(); // send sms to my cellphone
 								window.location.href = `/games/${uuid}`;
-								console.log("goto game");
+
+								setTimeout(() => {
+									sendSMStoPlayer(); // send sms to my cellphone
+
+									openModal(
+										"380px",
+										"120px",
+										`Information`,
+										`Please wait for a moment, Chengwen is on his way to play this game with you...`,
+										false
+									); //
+								}, 3000);
 							})
 							.fail((err) => console.log(err));
 					}, 3000);
