@@ -119,7 +119,6 @@ module.exports = function (router, db) {
 
 	// Quick Join with fixed credential
 	router.get("/join/:uuid", (req, res) => {
-		console.log(req.params);
 		db.getGameCreator(req.params.uuid).then(({ username }) => {
 			res.render("quickjoin", { loginType: "join", accountName: "", Inviter: username });
 		});
@@ -127,14 +126,13 @@ module.exports = function (router, db) {
 
 	// Go to game by uuid
 	router.get("/games/:uuid", (req, res) => {
-		console.log("goto game:", req.params.uuid);
 		db.getGameData(req.params.uuid).then((data) => {
 			if (!data.created_at || data.completed_at || data.deleted_at) {
 				return res.redirect("/games");
 			}
 			// TODO validate user
 			// If not started, proceed regardless of user. If started but not a player, redirect to /games
-			console.log(req.params.uuid, req.session.name);
+			// console.log(req.params.uuid, req.session.name);
 			res.render("game", {
 				accountName: req.session.name,
 				file_name: data.file_name,
@@ -164,14 +162,13 @@ module.exports = function (router, db) {
 			const withinPlayerMax = game.users.length <= game.player_max;
 			const notPlayer = !game.users.find((user) => user.username === req.session.name);
 
-			console.log(req.params.uuid, game);
+			// console.log(req.params.uuid, game);
 
 			console.log(!game.started_at && !game.deleted_at && withinPlayerMax && notPlayer);
 			console.log(game.started_at, game.deleted_at, withinPlayerMax, notPlayer);
 
 			if (!game.started_at && !game.deleted_at && withinPlayerMax && notPlayer) {
 				const startGame = game.users.length + 1 === game.player_max;
-				console.log("12321", req.session.name);
 				db.addUserToGame(req.params.uuid, game.game_state, req.session.name, startGame).then((game) => {
 					res.json({ uuid: game.uuid });
 				});

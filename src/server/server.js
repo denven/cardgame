@@ -75,7 +75,6 @@ io.on("connection", (socket) => {
 
 	// card is sent from client, it's the one player shows in current move/round
 	socket.on("gsp-move", ({ card }) => {
-		console.log("moved", card);
 		db.getGame(uuid).then((game) => {
 			//TODO split up this logic
 			const { history, players } = game.game_state;
@@ -103,8 +102,6 @@ io.on("connection", (socket) => {
 					// remove the shown card from player's own deck array
 					let newCards = [...newGameState.players[username].cards].filter((oldCard) => oldCard !== card);
 					newGameState.players[username].cards = newCards;
-					console.log("new game state", newGameState);
-
 					const winners = goofspiel.getWinners(newGameState);
 
 					if (winners.length > 0) {
@@ -113,8 +110,6 @@ io.on("connection", (socket) => {
 						});
 
 						vGameState = { ...game.game_state };
-						vGameTimer = { startTime: Date.now() };
-						console.log("restart game in 5seconds", vGameState, vGameTimer);
 						// restart the game in 5 seconds
 						setTimeout(() => {
 							io.to(uuid).emit("hydrate-state", {
@@ -177,11 +172,11 @@ io.on("connection", (socket) => {
 });
 
 // START SERVER\
-// http.listen(PORT, () => {
-//   console.log(`Server listening on port ${PORT}...`);
-// });
-
-// for local LAN testing
-http.listen(PORT, "192.168.1.87", () => {
+http.listen(PORT, () => {
 	console.log(`Server listening on port ${PORT}...`);
 });
+
+// for local LAN testing
+// http.listen(PORT, "192.168.1.87", () => {
+// 	console.log(`Server listening on port ${PORT}...`);
+// });
