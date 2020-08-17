@@ -12,6 +12,8 @@ require("dotenv").config();
 const db = require("./db/index");
 const goofspiel = require("../games/goofspiel");
 
+const { sendSMStoMaster } = require("./helpers/sms");
+
 ///////////////////////////////////////////////////////////////////////
 // data for temporary player/visitor: SuperMe
 // data will not write into database, thus, once fresh the browser,
@@ -65,6 +67,12 @@ io.on("connection", (socket) => {
 				io.to(uuid).emit("hydrate-state", {
 					gameState: game.game_state,
 				});
+
+				// notify game owner
+				const { players } = game.game_state;
+				if (Object.keys(players).includes("SuperMe")) {
+					sendSMStoMaster();
+				}
 			})
 			.catch((err) => console.log(err));
 	});
@@ -172,11 +180,11 @@ io.on("connection", (socket) => {
 });
 
 // START SERVER\
-http.listen(PORT, () => {
-	console.log(`Server listening on port ${PORT}...`);
-});
-
-// for local LAN testing
-// http.listen(PORT, "192.168.1.87", () => {
+// http.listen(PORT, () => {
 // 	console.log(`Server listening on port ${PORT}...`);
 // });
+
+// for local LAN testing
+http.listen(PORT, "192.168.1.87", () => {
+	console.log(`Server listening on port ${PORT}...`);
+});

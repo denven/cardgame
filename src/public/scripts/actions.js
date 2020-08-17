@@ -25,7 +25,7 @@ $(() => {
 							"380px",
 							"120px",
 							`Information`,
-							`You have already got 10 games not played in your room, please complete some games before creating more.`,
+							`You have already got 10 games not completed in your room, please play some games before creating more.`,
 							false
 						); //
 						return;
@@ -50,26 +50,6 @@ $(() => {
 		});
 	});
 
-	const sendSMStoPlayer = () => {
-		fetch("https://textbelt.com/text", {
-			method: "post",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({
-				phone: "16046283456",
-				message: "Someone is waiting to play Goofspiel with you...",
-				key: "textbelt",
-				// key:"bd6d7e308dd6f6e7aeecdf9dcdff21d6bdd5c1d0Ulxrymxbs3WzciUX8lhnOv914"
-			}),
-		})
-			.then((response) => {
-				console.log("sms service response: ", response);
-				return response.json();
-			})
-			.then((data) => {
-				console.log("sms service results: ", data);
-			});
-	};
-
 	// For quick play with username: 'SuperMe'
 	$("#quck-join-button").click(() => {
 		let uuid = window.location.pathname.split("/")[2];
@@ -84,6 +64,14 @@ $(() => {
 			})
 				.done((data) => {
 					console.log("login sucessfully");
+					openModal(
+						"380px",
+						"120px",
+						`Information`,
+						`Please wait for a moment, Chengwen is on his way to play this game with you...`,
+						false
+					); //
+
 					setTimeout(() => {
 						$.ajax({
 							type: "PUT",
@@ -91,18 +79,6 @@ $(() => {
 						})
 							.done((data) => {
 								window.location.href = `/games/${uuid}`;
-
-								setTimeout(() => {
-									sendSMStoPlayer(); // send sms to my cellphone
-
-									openModal(
-										"380px",
-										"120px",
-										`Information`,
-										`Please wait for a moment, Chengwen is on his way to play this game with you...`,
-										false
-									); //
-								}, 3000);
 							})
 							.fail((err) => console.log(err));
 					}, 3000);
