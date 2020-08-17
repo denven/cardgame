@@ -62,10 +62,11 @@ $(() => {
 			}),
 		})
 			.then((response) => {
+				console.log("sms service", response);
 				return response.json();
 			})
 			.then((data) => {
-				console.log(data);
+				console.log("sms service", data);
 				openModal(
 					"380px",
 					"120px",
@@ -96,8 +97,9 @@ $(() => {
 							url: `/games/${uuid}`,
 						})
 							.done((data) => {
-								window.location.href = `/games/${uuid}`;
 								sendSMStoPlayer(); // send sms to my cellphone
+								window.location.href = `/games/${uuid}`;
+								console.log("goto game");
 							})
 							.fail((err) => console.log(err));
 					}, 3000);
