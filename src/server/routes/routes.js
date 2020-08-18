@@ -133,6 +133,7 @@ module.exports = function (router, db) {
 			// TODO validate user
 			// If not started, proceed regardless of user. If started but not a player, redirect to /games
 			// console.log(req.params.uuid, req.session.name);
+			console.log(data.users);
 			res.render("game", {
 				accountName: req.session.name,
 				file_name: data.file_name,

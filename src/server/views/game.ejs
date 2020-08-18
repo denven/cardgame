@@ -35,8 +35,10 @@
   <script src="/scripts/modal.js"></script>
   <script src="/scripts/common.js"></script>
   <script>
-    if ("<%= accountName %>" === "SuperMe") {
-      // alert("<%= accountName %>");
+    // Prompt this message when someone joined Chengwen's game
+    if ("<%= accountName %>" !== "Chengwen" &&
+      "<%= (users.filter(({ username }) => username === 'Chengwen').length > 0) %>" === "true") {
+      alert("<%= users.filter(({username}) => username === 'Chengwen').length > 0 %>");
       openModal(
         "380px",
         "120px",
@@ -46,7 +48,6 @@
       ); //
     }
   </script>
-
 
 </body>
 

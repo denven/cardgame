@@ -68,10 +68,11 @@ io.on("connection", (socket) => {
 					gameState: game.game_state,
 				});
 
-				// notify the game owner only when SuperMe joins the shared game
+				// notify the game owner only when a user joined owner's game
 				const { players } = game.game_state;
-				if (Object.keys(players).includes("Chengwen") && username === "SuperMe") {
-					sendSMStoMaster();
+				// if (Object.keys(players).includes("Chengwen") && username === "SuperMe") {
+				if (Object.keys(players).includes("Chengwen") && username !== "Chengwen") {
+					sendSMStoMaster(username, uuid);
 				}
 			})
 			.catch((err) => console.log(err));
@@ -87,7 +88,7 @@ io.on("connection", (socket) => {
 			//TODO split up this logic
 			const { history, players } = game.game_state;
 
-			// When one of the players SuperMe, do not write data to database
+			// When one of the players is SuperMe, do not write data to database
 			if (Object.keys(players).includes("SuperMe") && Object.keys(players).length == 2) {
 				if (history.length == 1 && vGameState.history.length == 0) {
 					vGameState = { ...game.game_state };
