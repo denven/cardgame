@@ -1,7 +1,7 @@
 const fetch = require("node-fetch");
 let smsSentTime = 0;
 
-// only allow to send sms again in 5 minutes or more
+// only 1 sms is allowed to send in 5 minutes, due to cost
 const sendSMStoMaster = () => {
 	if ((Date.now() - smsSentTime) / 1000 > 60 * 5) {
 		fetch("https://textbelt.com/text", {

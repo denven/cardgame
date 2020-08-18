@@ -1,6 +1,6 @@
 $(() => {
 	let accountName = $(".nav-name-tag").text().slice(4, -1);
-	if (accountName === "SuperMe") {
+	if (accountName === "SuperMe" || accountName === "") {
 		$("#new-game-button").prop("disabled", true);
 		$("#new-game-button").addClass("button-disabled");
 		$("#new-game-button").removeClass("button-primary");
@@ -23,9 +23,9 @@ $(() => {
 					if (data.status === "NOT_ALLOWED") {
 						openModal(
 							"380px",
-							"120px",
+							"130px",
 							`Information`,
-							`You have already got 10 games not completed in your room, please play some games before creating more.`,
+							`You have already got 10 games not completed in your room, please play some games before creating.`,
 							false
 						); //
 						return;

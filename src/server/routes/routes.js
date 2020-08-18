@@ -110,9 +110,9 @@ module.exports = function (router, db) {
 	// Start Game: create a new game
 	router.get("/new", (req, res) => {
 		const username = req.session.name;
-		if (!username) {
-			return res.redirect("/");
-		}
+		// if (!username) {
+		// 	return res.redirect("/");
+		// }
 
 		res.render(`newgame`, { accountName: req.session.name });
 	});
