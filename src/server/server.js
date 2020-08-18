@@ -68,9 +68,9 @@ io.on("connection", (socket) => {
 					gameState: game.game_state,
 				});
 
-				// notify game owner only when SuperMe joins the shared game
+				// notify the game owner only when SuperMe joins the shared game
 				const { players } = game.game_state;
-				if (Object.keys(players).includes("SuperMe") && username === "SuperMe") {
+				if (Object.keys(players).includes("Chengwen") && username === "SuperMe") {
 					sendSMStoMaster();
 				}
 			})
