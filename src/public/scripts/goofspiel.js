@@ -1,5 +1,6 @@
 // client socket, player operations on browser
-
+// game logic is implemented here,
+// send players move to backend and write data to database for persisance
 $(() => {
 	let localGameState = null;
 	const WIN_SCORE = 45;
@@ -155,7 +156,7 @@ $(() => {
 		$(".gsp-player-score").text(45);
 	};
 
-	// Click to toogle visibility of navigation bar
+	// Click space area to toogle visibility of navigation bar
 	$(document).click((e) => {
 		if (!e.target.id) {
 			if ($("#top-nav-bar").hasClass("hidden")) {

@@ -1,5 +1,7 @@
 const bcrypt = require("bcrypt");
 const helpers = require("../../lib/helpers");
+const sms = require("../helpers/sms");
+
 const MAX_GAMES_NUM = 10;
 
 module.exports = function (router, db) {
@@ -110,6 +112,7 @@ module.exports = function (router, db) {
 	// Start Game: create a new game
 	router.get("/new", (req, res) => {
 		const username = req.session.name;
+		// comment this to allow people to view the help info
 		// if (!username) {
 		// 	return res.redirect("/");
 		// }
@@ -124,7 +127,7 @@ module.exports = function (router, db) {
 		});
 	});
 
-	// Go to game by uuid
+	// Go to game page when loading with such a url or a click of the href button in Join Game Page.
 	router.get("/games/:uuid", (req, res) => {
 		db.getGameData(req.params.uuid).then((data) => {
 			if (!data.created_at || data.completed_at || data.deleted_at) {
@@ -133,13 +136,28 @@ module.exports = function (router, db) {
 			// TODO validate user
 			// If not started, proceed regardless of user. If started but not a player, redirect to /games
 			// console.log(req.params.uuid, req.session.name);
-			console.log(data.users);
+			// console.log("Loaded the game with players:", data.users);
+
+			const { players } = data.game_state;
+			let reminderUser = "false";
+			// notify the game owner only when a user joined owner's game
+			if (Object.keys(players).includes("Chengwen") && req.session.name !== "Chengwen") {
+				// console.log(sms.lastText);
+				if (!sms.lastText.uuids.includes(req.params.uuid) || (Date.now() - sms.lastText.time) / 1000 > 60 * 5) {
+					sms.sendTexttoMaster(req.session.name, req.params.uuid);
+					reminderUser = "true";
+				}
+			} else {
+				reminderUser = "false";
+			}
+
 			res.render("game", {
 				accountName: req.session.name,
 				file_name: data.file_name,
 				users: data.users,
 				uuid: data.uuid,
 				gameName: data.game_name,
+				reminder: reminderUser,
 			});
 		});
 	});
@@ -157,8 +175,11 @@ module.exports = function (router, db) {
 		});
 	});
 
-	// Join a game by username
+	// Join a game by username, response to the "Join" button click request
+	// Jobs done here: add the user to game in database, send response to client
 	router.put("/games/:uuid", (req, res) => {
+		console.log("someone just joined the game", req.body);
+
 		db.getGameData(req.params.uuid).then((game) => {
 			const withinPlayerMax = game.users.length <= game.player_max;
 			const notPlayer = !game.users.find((user) => user.username === req.session.name);
@@ -168,8 +189,10 @@ module.exports = function (router, db) {
 			console.log(!game.started_at && !game.deleted_at && withinPlayerMax && notPlayer);
 			console.log(game.started_at, game.deleted_at, withinPlayerMax, notPlayer);
 
+			// add user to game when the game is not started with another participant(not the creator)
 			if (!game.started_at && !game.deleted_at && withinPlayerMax && notPlayer) {
 				const startGame = game.users.length + 1 === game.player_max;
+
 				db.addUserToGame(req.params.uuid, game.game_state, req.session.name, startGame).then((game) => {
 					res.json({ uuid: game.uuid });
 				});

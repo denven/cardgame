@@ -36,14 +36,15 @@
   <script src="/scripts/common.js"></script>
   <script>
     // Prompt this message when someone joined Chengwen's game
-    if ("<%= accountName %>" !== "Chengwen" &&
-      "<%= (users.filter(({ username }) => username === 'Chengwen').length > 0) %>" === "true") {
-      // alert("<%= users.filter(({username}) => username === 'Chengwen').length > 0 %>");
+    // if ("<%= accountName %>" !== "Chengwen" &&
+    // "<%= (users.filter(({ username }) => username === 'Chengwen').length > 0) %>" === "true") {
+    // alert("<%= users.filter(({username}) => username === 'Chengwen').length > 0 %>");
+    if ("<%= reminder %>" === "true") {
       openModal(
         "380px",
         "120px",
         `Goofspiel`,
-        `Hey, welcome! Chengwen is on the way to play this game with you, just wait for a moment...`,
+        `Hello, welcome! Chengwen will play this game with you ASAP, please be patient...`,
         false
       ); //
     }
