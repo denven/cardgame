@@ -17,12 +17,21 @@
   <div class="container">
     <h1>Start Game</h1>
     <h4>Goofspiel is played using cards from a standard deck of cards, and is typically a two-player game, although more
-      players are possible.</h4>
+      players are possible. About our game board:</h4>
+    <ol>
+      <li>The upper part shows cards remaining in your hand, the middle shows card you and
+        your opponent deal in each round, the bottom shows the whole progress of a game</li>
+      <li>You can click the blank area to toggle the navigation menu which will help to concentrate on playing the game.
+      </li>
+    </ol>
 
     <div class="new-games">
       <div class="new-game new-game-button" data-game="goofspiel">
         <img src="/images/goofspiel.png">
-        <div> <button id='new-game-button' class="button button-disabled">Create</button></div>
+        <div class="new-buttons">
+          <div> <button id='new-game-button' class="button button-disabled">Create</button></div>
+          <div> <button id='play-game-button' class="button button-disabled">Play</button></div>
+        </div>
       </div>
 
       <div class="rules">
@@ -40,14 +49,16 @@
           </li>
           <li>The final winner is the first sprite who wins/scores 45(+) steps to reach the treasure box.</li>
           <li>Just play and have fun! </li>
+
       </div>
     </div>
+
     <h4> You can read the common rules below to better understand how to play:</h4>
     <ol class="new-game">
-      <li>Each suit is ranked A (low), 2, ..., 10, J, Q, K (high). One suit is singled out as the "prizes"; each of the
-        remaining suits becomes a hand for one player, with one
-        suit discarded if there are only two players, or taken from additional decks if there are four or more. The
-        prizes are shuffled and placed between the players with one card turned up.
+      <li>Each suit is ranked A (low), 2, ..., 10, J, Q, K (high). One suit is singled out as the "prizes"; each of
+        the remaining suits becomes a hand for one player, with one suit discarded if there are only two players, or
+        taken from additional decks if there are four or more. The prizes are shuffled and placed between the players
+        with one card turned up.
       </li>
       <li>
         Play proceeds in a series of rounds. The players make "closed bids" for the top (face up) prize by selecting a

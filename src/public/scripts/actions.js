@@ -1,5 +1,16 @@
 $(() => {
 	let accountName = $(".nav-name-tag").text().slice(4, -1);
+	console.log("111", accountName.length);
+	if (accountName.length == 0) {
+		$("#play-game-button").prop("disabled", true);
+		$("#play-game-button").addClass("button-disabled");
+		$("#new-game-button").removeClass("button-primary");
+	} else {
+		$("#play-game-button").prop("disabled", false);
+		$("#play-game-button").removeClass("button-disabled");
+		$("#play-game-button").addClass("button-primary");
+	}
+
 	if (accountName === "SuperMe" || accountName === "") {
 		$("#new-game-button").prop("disabled", true);
 		$("#new-game-button").addClass("button-disabled");
@@ -51,7 +62,7 @@ $(() => {
 	});
 
 	// For quick play with username: 'SuperMe'
-	$("#quck-join-button").click(() => {
+	$("#quick-join-button").click(() => {
 		let uuid = window.location.pathname.split("/")[2];
 
 		if (uuid) {
@@ -76,6 +87,12 @@ $(() => {
 					// }, 3000);
 				})
 				.fail((err) => console.log(err));
+		}
+	});
+
+	$("#play-game-button").click(() => {
+		if (accountName.length > 0) {
+			window.location.href = `/games`;
 		}
 	});
 });
